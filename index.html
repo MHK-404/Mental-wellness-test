@@ -3,49 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Wellness Test Proposal</title>
-    <link rel="stylesheet" href="style.css">
+    <title>MindWell - Mental Wellness Tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f9ff;
+        }
+        header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #4a6fa5;
+            border-bottom: 2px solid #4a6fa5;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .member {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 200px;
+            text-align: center;
+        }
+        .feature-list {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .feature-list ul {
+            padding-left: 20px;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+        }
+        .update-date {
+            font-style: italic;
+            text-align: right;
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Mental Wellness Test Proposal</h1>
+        <h1>MindWell</h1>
+        <p>Your Personal Mental Wellness Tracker</p>
     </header>
 
-    <section id="team">
+    <section>
         <h2>Team Members</h2>
-        <p>Mohammad Alkatheeri, Ali Alzaabi, Hussein Al-Rubeai, Mhd Saffouh Alajlani</p>
+        <div class="team-members">
+            <div class="member">
+                <strong>Mohammad Alkatheeri</strong>
+            </div>
+            <div class="member">
+                <strong>Ali Alzaabi</strong>
+            </div>
+            <div class="member">
+                <strong>Hussein Al-Rubeai</strong>
+            </div>
+            <div class="member">
+                <strong>Mhd Saffouh Alajiani</strong>
+            </div>
+        </div>
     </section>
 
-    <section id="overview">
+    <section>
         <h2>Application Overview</h2>
-        <p>The Mental Wellness Test helps users assess their mental state, providing scores and personalized recommendations.</p>
+        <p>MindWell is a user-friendly web application designed to help individuals assess and track their mental wellness. Users can take a short mental wellness test to receive immediate insights into their current well-being, categorized scores to better understand their mental state, and personalized recommendations for improvement. The application securely stores test results, allowing users to track their progress over time, and includes accessibility features to ensure inclusivity for all users.</p>
     </section>
 
-    <section id="technology">
+    <section>
         <h2>Technology Overview</h2>
         <ul>
-            <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
+            <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript, React.js</li>
             <li><strong>Backend:</strong> Node.js, Express.js</li>
-            <li><strong>Database:</strong> Azure Storage</li>
-            <li><strong>Hosting:</strong> GitHub Pages (Frontend), Azure App Services (Backend)</li>
+            <li><strong>Database:</strong> MongoDB</li>
+            <li><strong>Authentication:</strong> Azure AD</li>
+            <li><strong>Hosting:</strong> Microsoft Azure App Services</li>
+            <li><strong>Additional Libraries:</strong> Chart.js (for progress visualization), Axios (for API calls)</li>
         </ul>
     </section>
 
-    <section id="features">
-        <h2>Feature List</h2>
+    <section class="feature-list">
+        <h2>Feature List (Current Sprint)</h2>
         <ul>
-            <li>Mental wellness test</li>
-            <li>Scoring system (Low, Moderate, High)</li>
-            <li>Personalized recommendations</li>
-            <li>Secure storage of test results</li>
-            <li>Accessible UI with screen reader support</li>
+            <li>Mental wellness test with interactive form</li>
+            <li>Categorized scoring system (Low, Moderate, High)</li>
+            <li>Personalized recommendations based on test results</li>
+            <li>Secure storage of test results with user authentication</li>
+            <li>Intuitive UI/UX design for easy test completion</li>
+            <li>Accessibility features including screen reader support</li>
+            <li>Azure authentication implementation</li>
         </ul>
     </section>
 
-    <footer>
-        <p>Proposal Last Updated: <span id="date"></span></p>
-    </footer>
+    <section class="feature-list">
+        <h2>Future Feature List</h2>
+        <ul>
+            <li>AI-enhanced scoring models for more accurate results</li>
+            <li>Mobile application version</li>
+            <li>Community support features</li>
+            <li>Integration with wellness apps (meditation, fitness trackers)</li>
+            <li>Multi-language support</li>
+            <li>Push notifications for regular check-ins</li>
+            <li>Detailed analytics dashboard</li>
+        </ul>
+    </section>
 
-    <script src="app.js"></script>
+    <section class="feature-list">
+        <h2>Basic Technical Features</h2>
+        <ul>
+            <li>Responsive web design</li>
+            <li>User authentication system</li>
+            <li>Form validation</li>
+            <li>RESTful API endpoints</li>
+            <li>Database CRUD operations</li>
+            <li>Frontend-backend communication</li>
+        </ul>
+    </section>
+
+    <section class="feature-list">
+        <h2>Advanced Technical Features</h2>
+        <ul>
+            <li>Azure AD integration for secure authentication</li>
+            <li>AI-based scoring algorithm research and implementation</li>
+            <li>Accessibility compliance (WCAG standards)</li>
+            <li>Data encryption for sensitive health information</li>
+            <li>Automated testing pipeline</li>
+            <li>Continuous deployment with Azure DevOps</li>
+        </ul>
+    </section>
+
+    <div class="update-date">
+        <p>Proposal Last Updated: April 3, 2025</p>
+    </div>
 </body>
 </html>
