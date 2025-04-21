@@ -1,162 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindWell - Mental Wellness Tracker</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f9ff;
-        }
-        header {
-            background-color: #4a6fa5;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        h2 {
-            color: #4a6fa5;
-            border-bottom: 2px solid #4a6fa5;
-            padding-bottom: 5px;
-            margin-top: 30px;
-        }
-        .team-members {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .member {
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 200px;
-            text-align: center;
-        }
-        .feature-list {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .feature-list ul {
-            padding-left: 20px;
-        }
-        .feature-list li {
-            margin-bottom: 10px;
-        }
-        .update-date {
-            font-style: italic;
-            text-align: right;
-            margin-top: 30px;
-            color: #666;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insurance Risk Assessment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #f7f9fc;
+      color: #333;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    form {
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    fieldset {
+      margin-bottom: 2rem;
+      border: none;
+    }
+    legend {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .submit-btn:hover {
+      background-color: #004e99;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>MindWell</h1>
-        <p>Your Personal Mental Wellness Tracker</p>
-    </header>
+  <h1>Insurance Risk Assessment</h1>
+  <form id="riskForm">
+    <!-- Personal Info -->
+    <fieldset>
+      <legend>Personal Information</legend>
+      <label>Age</label>
+      <input type="number" name="age" required>
 
-    <section>
-        <h2>Team Members</h2>
-        <div class="team-members">
-            <div class="member">
-                <strong>Mohammad Alkatheeri</strong>
-            </div>
-            <div class="member">
-                <strong>Ali Alzaabi</strong>
-            </div>
-            <div class="member">
-                <strong>Hussein Al-Rubeai</strong>
-            </div>
-            <div class="member">
-                <strong>Mhd Saffouh Alajiani</strong>
-            </div>
-        </div>
-    </section>
+      <label>Gender</label>
+      <select name="gender">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+        <option>Prefer not to say</option>
+      </select>
 
-    <section>
-        <h2>Application Overview</h2>
-        <p>MindWell is a user-friendly web application designed to help individuals assess and track their mental wellness. Users can take a short mental wellness test to receive immediate insights into their current well-being, categorized scores to better understand their mental state, and personalized recommendations for improvement. The application securely stores test results, allowing users to track their progress over time, and includes accessibility features to ensure inclusivity for all users.</p>
-    </section>
+      <label>Marital Status</label>
+      <select name="marital">
+        <option>Single</option>
+        <option>Married</option>
+        <option>Divorced</option>
+        <option>Widowed</option>
+      </select>
 
-    <section>
-        <h2>Technology Overview</h2>
-        <ul>
-            <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript</li>
-            <li><strong>Backend:</strong> Node.js, Express.js</li>
-            <li><strong>Authentication:</strong> Azure AD</li>
-            <li><strong>Hosting:</strong> Microsoft Azure App Services</li>
-        
-        </ul>
-    </section>
+      <label>Occupation Type</label>
+      <select name="occupation">
+        <option>Sedentary</option>
+        <option>Moderately Active</option>
+        <option>Physically Demanding</option>
+      </select>
+    </fieldset>
 
-    <section class="feature-list">
-        <h2>Feature List (Current Sprint)</h2>
-        <ul>
-            <li>Mental wellness test with interactive form</li>
-            <li>Categorized scoring system (Low, Moderate, High)</li>
-            <li>Personalized recommendations based on test results</li>
-            <li>Secure storage of test results with user authentication</li>
-            <li>Intuitive UI/UX design for easy test completion</li>
-            <li>Accessibility features including screen reader support</li>
-            <li>Azure authentication implementation</li>
-        </ul>
-    </section>
+    <!-- Physical Health -->
+    <fieldset>
+      <legend>Physical Health</legend>
+      <label>Do you smoke?</label>
+      <select name="smoke">
+        <option>No</option>
+        <option>Yes</option>
+      </select>
 
-    <section class="feature-list">
-        <h2>Future Feature List</h2>
-        <ul>
-            <li>AI-enhanced scoring models for more accurate results</li>
-            <li>Mobile application version</li>
-            <li>Community support features</li>
-            <li>Integration with wellness apps (meditation, fitness trackers)</li>
-            <li>Multi-language support</li>
-            <li>Push notifications for regular check-ins</li>
-            <li>Detailed analytics dashboard</li>
-        </ul>
-    </section>
+      <label>Do you consume alcohol?</label>
+      <select name="alcohol">
+        <option>Never</option>
+        <option>Occasionally</option>
+        <option>Regularly</option>
+      </select>
 
-    <section class="feature-list">
-        <h2>Basic Technical Features</h2>
-        <ul>
-            <li>Responsive web design</li>
-            <li>Form validation</li>
-            <li>RESTful API endpoints</li>
-            <li>Frontend-backend communication</li>
-            <li>Continuous deployment with Azure </li>
-             <li>Using Azure for hosting </li>
-        </ul>
-    </section>
+      <label>Chronic Conditions</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
+        <label><input type="checkbox" name="conditions" value="hypertension"> Hypertension</label>
+        <label><input type="checkbox" name="conditions" value="asthma"> Asthma</label>
+        <label><input type="checkbox" name="conditions" value="cholesterol"> High Cholesterol</label>
+        <label><input type="checkbox" name="conditions" value="none"> None</label>
+      </div>
+    </fieldset>
 
-    <section class="feature-list">
-        <h2>Advanced Technical Features</h2>
-        <ul>
-            <li>Azure AD integration for secure authentication</li>
-            <li>AI-based scoring algorithm research and implementation</li>
-            <li>Data encryption for sensitive health information</li>
-            <li>Automated testing pipeline</li>
-        </ul>
-    </section>
+    <!-- Mental Health -->
+    <fieldset>
+      <legend>Mental Health</legend>
+      <label>Stress Level (1–10)</label>
+      <input type="range" name="stress" min="1" max="10">
 
-    <div class="update-date">
-        <p>Proposal Last Updated: April 3, 2025</p>
-    </div>
+      <label>Mental Well-being Rating (1–10)</label>
+      <input type="range" name="mentalWellbeing" min="1" max="10">
+
+      <label>Have you consulted a mental health professional?</label>
+      <select name="mentalSupport">
+        <option>No</option>
+        <option>Yes</option>
+      </select>
+
+      <label>Check all that apply (past 6 months)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="mentalIssues" value="stress"> Frequent stress</label>
+        <label><input type="checkbox" name="mentalIssues" value="anxiety"> Anxiety</label>
+        <label><input type="checkbox" name="mentalIssues" value="depression"> Depression</label>
+        <label><input type="checkbox" name="mentalIssues" value="insomnia"> Trouble sleeping</label>
+        <label><input type="checkbox" name="mentalIssues" value="none"> None</label>
+      </div>
+    </fieldset>
+
+    <!-- Lifestyle & Environment -->
+    <fieldset>
+      <legend>Lifestyle & Environment</legend>
+      <label>Screen Time (non-work)</label>
+      <select name="screenTime">
+        <option>Less than 2 hours</option>
+        <option>2–4 hours</option>
+        <option>5–6 hours</option>
+        <option>More than 6 hours</option>
+      </select>
+
+      <label>Do you have pets?</label>
+      <select name="pets">
+        <option>No</option>
+        <option>Yes</option>
+      </select>
+
+      <label>Air Quality in Your Region</label>
+      <select name="airQuality">
+        <option>Good</option>
+        <option>Moderate</option>
+        <option>Poor</option>
+      </select>
+
+      <label>Engagement in stress-relieving activities</label>
+      <select name="relaxation">
+        <option>Never</option>
+        <option>Rarely</option>
+        <option>Occasionally</option>
+        <option>Regularly</option>
+      </select>
+    </fieldset>
+
+    <!-- Submit -->
+    <button type="submit" class="submit-btn">Submit Assessment</button>
+  </form>
+
+  <script>
+    document.getElementById('riskForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('wellsure-backend-edfyfja5b4bmegct.uaenorth-01.azurewebsites.net', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        alert(`Your risk level is: ${result.riskCategory}\nRecommendations: ${result.recommendations}`);
+      } catch (error) {
+        console.error('Submission failed:', error);
+        alert('Something went wrong. Please try again later.');
+      }
+    });
+  </script>
 </body>
 </html>
