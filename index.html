@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Insurance Risk Assessment</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -16,296 +16,123 @@
       color: #333;
       padding: 2rem;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    form {
-      background: #fff;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    fieldset {
-      margin-bottom: 2rem;
-      border: none;
-    }
-    legend {
-      font-weight: 600;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.7rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .checkbox-group label {
-      display: inline-block;
-      margin-right: 1rem;
-    }
-    .submit-btn {
-      display: block;
-      width: 100%;
-      padding: 1rem;
-      background-color: #0066cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .submit-btn:hover {
-      background-color: #004e99;
-    }
-    #results {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      display: none;
-    }
-    .risk-high {
-      color: #d32f2f;
-    }
-    .risk-medium {
-      color: #ff9800;
-    }
-    .risk-low {
-      color: #388e3c;
-    }
-    .slider-container {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .slider-value {
-      min-width: 2rem;
-      text-align: center;
-    }
+    /* [Keep all your existing styles] */
   </style>
 </head>
 <body>
-  <h1>Insurance Risk Assessment</h1>
-  <form id="riskForm">
-    <!-- Personal Info -->
-    <fieldset>
-      <legend>Personal Information</legend>
-      <label>Age</label>
-      <input type="number" name="age" required min="18" max="120">
-
-      <label>Gender</label>
-      <select name="gender" required>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-
-      <label>Marital Status</label>
-      <select name="marital">
-        <option>Single</option>
-        <option>Married</option>
-        <option>Divorced</option>
-        <option>Widowed</option>
-      </select>
-
-      <label>Occupation Type</label>
-      <select name="occupation">
-        <option>Sedentary</option>
-        <option>Moderately Active</option>
-        <option>Physically Demanding</option>
-      </select>
-    </fieldset>
-
-    <!-- Physical Health -->
-    <fieldset>
-      <legend>Physical Health</legend>
-      <label>Do you smoke?</label>
-      <select name="smoke">
-        <option>No</option>
-        <option>Yes</option>
-      </select>
-
-      <label>Weekly Exercise Frequency</label>
-      <select name="exercise">
-        <option>Never</option>
-        <option>1-2 times</option>
-        <option>3-4 times</option>
-        <option>5+ times</option>
-      </select>
-
-      <label>Chronic Conditions</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
-        <label><input type="checkbox" name="conditions" value="hypertension"> Hypertension</label>
-        <label><input type="checkbox" name="conditions" value="asthma"> Asthma</label>
-        <label><input type="checkbox" name="conditions" value="cholesterol"> High Cholesterol</label>
-        <label><input type="checkbox" name="conditions" value="none"> None</label>
-      </div>
-    </fieldset>
-
-    <!-- Mental Health -->
-    <fieldset>
-      <legend>Mental Health</legend>
-      <label>Stress Level (1–10)</label>
-      <div class="slider-container">
-        <input type="range" name="stress" min="1" max="10" value="5" class="slider" id="stressSlider">
-        <span class="slider-value" id="stressValue">5</span>
-      </div>
-
-      <label>Mental Well-being Rating (1–10)</label>
-      <div class="slider-container">
-        <input type="range" name="mentalWellbeing" min="1" max="10" value="5" class="slider" id="wellbeingSlider">
-        <span class="slider-value" id="wellbeingValue">5</span>
-      </div>
-
-      <label>Have you consulted a mental health professional?</label>
-      <select name="mentalSupport">
-        <option>No</option>
-        <option>Yes</option>
-      </select>
-    </fieldset>
-
-    <!-- Lifestyle & Environment -->
-    <fieldset>
-      <legend>Lifestyle & Environment</legend>
-      <label>Screen Time (non-work)</label>
-      <select name="screenTime">
-        <option>Less than 2 hours</option>
-        <option>2–4 hours</option>
-        <option>5–6 hours</option>
-        <option>More than 6 hours</option>
-      </select>
-
-      <label>Engagement in stress-relieving activities</label>
-      <select name="relaxation">
-        <option>Never</option>
-        <option>Rarely</option>
-        <option>Occasionally</option>
-        <option>Regularly</option>
-      </select>
-    </fieldset>
-
-    <!-- Submit -->
-    <button type="submit" class="submit-btn">Submit Assessment</button>
-  </form>
-
-  <div id="results">
-    <h2>Assessment Results</h2>
-    <p>Your risk category: <span id="riskCategory"></span></p>
-    <p>Your score: <span id="riskScore"></span></p>
-    <h3>Recommendations:</h3>
-    <ul id="recommendations"></ul>
-  </div>
+  <!-- [Keep all your existing HTML structure] -->
 
   <script>
     // Slider value displays
-    const stressSlider = document.getElementById('stressSlider');
-    const stressValue = document.getElementById('stressValue');
-    const wellbeingSlider = document.getElementById('wellbeingSlider');
-    const wellbeingValue = document.getElementById('wellbeingValue');
+    document.addEventListener('DOMContentLoaded', function() {
+      const stressSlider = document.getElementById('stressSlider');
+      const stressValue = document.getElementById('stressValue');
+      const wellbeingSlider = document.getElementById('wellbeingSlider');
+      const wellbeingValue = document.getElementById('wellbeingValue');
 
-    stressSlider.addEventListener('input', () => {
-      stressValue.textContent = stressSlider.value;
-    });
-
-    wellbeingSlider.addEventListener('input', () => {
-      wellbeingValue.textContent = wellbeingSlider.value;
-    });
-
-    // Form submission
-    document.getElementById('riskForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-      const submitBtn = event.target.querySelector('.submit-btn');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Processing...';
-
-      // Process form data
-      const formData = new FormData(event.target);
-      const data = {
-        age: parseInt(formData.get('age')),
-        gender: formData.get('gender'),
-        smoke: formData.get('smoke'),
-        exercise: formData.get('exercise'),
-        stress: parseInt(formData.get('stress')),
-        mentalWellbeing: parseInt(formData.get('mentalWellbeing')),
-        mentalSupport: formData.get('mentalSupport'),
-        relaxation: formData.get('relaxation'),
-        screenTime: formData.get('screenTime'),
-        conditions: Array.from(formData.getAll('conditions')).filter(c => c !== "none")
-      };
-
-      try {
-        const API_URL = 'https://wellsure-backend-edfyfja5b4bmegct.uaenorth-01.azurewebsites.net/api/assess';
-        
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
+      if (stressSlider && stressValue) {
+        stressSlider.addEventListener('input', () => {
+          stressValue.textContent = stressSlider.value;
         });
+      }
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+      if (wellbeingSlider && wellbeingValue) {
+        wellbeingSlider.addEventListener('input', () => {
+          wellbeingValue.textContent = wellbeingSlider.value;
+        });
+      }
+
+      // Form submission
+      const riskForm = document.getElementById('riskForm');
+      if (riskForm) {
+        riskForm.addEventListener('submit', async function(event) {
+          event.preventDefault();
+          const submitBtn = event.target.querySelector('.submit-btn');
+          if (!submitBtn) return;
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Processing...';
+
+          try {
+            const formData = new FormData(event.target);
+            const data = {
+              age: parseInt(formData.get('age')),
+              gender: formData.get('gender'),
+              smoke: formData.get('smoke'),
+              exercise: formData.get('exercise'),
+              stress: parseInt(formData.get('stress')),
+              mentalWellbeing: parseInt(formData.get('mentalWellbeing')),
+              mentalSupport: formData.get('mentalSupport'),
+              relaxation: formData.get('relaxation'),
+              screenTime: formData.get('screenTime'),
+              conditions: Array.from(formData.getAll('conditions')).filter(c => c !== "none")
+            };
+
+            const API_URL = 'https://wellsure-backend-edfyfja5b4bmegct.uaenorth-01.azurewebsites.net/api/assess';
+            const response = await fetch(API_URL, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            displayResults(result);
+          } catch (error) {
+            console.error('Submission failed:', error);
+            alert('Error submitting assessment. Please try again.');
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Assessment';
+          }
+        });
+      }
+
+      function displayResults(result) {
+        const resultsDiv = document.getElementById('results');
+        const riskCategory = document.getElementById('riskCategory');
+        const riskScore = document.getElementById('riskScore');
+        const recommendationsList = document.getElementById('recommendations');
+
+        if (!resultsDiv || !riskCategory || !riskScore || !recommendationsList) return;
+
+        // Set risk category with appropriate color
+        riskCategory.textContent = result.riskCategory || 'Not available';
+        riskCategory.className = '';
+        
+        if (result.riskCategory && result.riskCategory.includes('High')) {
+          riskCategory.classList.add('risk-high');
+        } else if (result.riskCategory && result.riskCategory.includes('Moderate')) {
+          riskCategory.classList.add('risk-medium');
+        } else {
+          riskCategory.classList.add('risk-low');
         }
 
-        const result = await response.json();
-        displayResults(result);
-      } catch (error) {
-        console.error('Submission failed:', error);
-        alert('Error submitting assessment. Please try again.');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Assessment';
+        // Set score and recommendations
+        riskScore.textContent = result.score || 'N/A';
+        
+        recommendationsList.innerHTML = '';
+        if (result.recommendations && Array.isArray(result.recommendations)) {
+          result.recommendations.forEach(rec => {
+            const li = document.createElement('li');
+            li.textContent = rec;
+            recommendationsList.appendChild(li);
+          });
+        }
+
+        // Show results
+        resultsDiv.style.display = 'block';
+        window.scrollTo({
+          top: resultsDiv.offsetTop,
+          behavior: 'smooth'
+        });
       }
     });
-
-    function displayResults(result) {
-      const resultsDiv = document.getElementById('results');
-      const riskCategory = document.getElementById('riskCategory');
-      const riskScore = document.getElementById('riskScore');
-      const recommendationsList = document.getElementById('recommendations');
-
-      // Set risk category with appropriate color
-      riskCategory.textContent = result.riskCategory;
-      riskCategory.className = '';
-      if (result.riskCategory.includes('High')) {
-        riskCategory.classList.add('risk-high');
-      } else if (result.riskCategory.includes('Moderate')) {
-        riskCategory.classList.add('risk-medium');
-      } else {
-        riskCategory.classList.add('risk-low');
-      }
-
-      // Set score and recommendations
-      riskScore.textContent = result.score || 'N/A';
-      
-      recommendationsList.innerHTML = '';
-      result.recommendations.forEach(rec => {
-        const li = document.createElement('li');
-        li.textContent = rec;
-        recommendationsList.appendChild(li);
-      });
-
-      // Show results
-      resultsDiv.style.display = 'block';
-      window.scrollTo({
-        top: resultsDiv.offsetTop,
-        behavior: 'smooth'
-      });
-    }
   </script>
 </body>
 </html>
