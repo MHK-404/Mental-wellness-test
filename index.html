@@ -68,6 +68,33 @@
     .submit-btn:hover {
       background-color: #004e99;
     }
+    #results {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+    .risk-high {
+      color: #d32f2f;
+    }
+    .risk-medium {
+      color: #ff9800;
+    }
+    .risk-low {
+      color: #388e3c;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .slider-value {
+      min-width: 2rem;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -77,14 +104,12 @@
     <fieldset>
       <legend>Personal Information</legend>
       <label>Age</label>
-      <input type="number" name="age" required>
+      <input type="number" name="age" required min="18" max="120">
 
       <label>Gender</label>
-      <select name="gender">
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-        <option>Prefer not to say</option>
+      <select name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
       </select>
 
       <label>Marital Status</label>
@@ -112,11 +137,12 @@
         <option>Yes</option>
       </select>
 
-      <label>Do you consume alcohol?</label>
-      <select name="alcohol">
+      <label>Weekly Exercise Frequency</label>
+      <select name="exercise">
         <option>Never</option>
-        <option>Occasionally</option>
-        <option>Regularly</option>
+        <option>1-2 times</option>
+        <option>3-4 times</option>
+        <option>5+ times</option>
       </select>
 
       <label>Chronic Conditions</label>
@@ -133,25 +159,22 @@
     <fieldset>
       <legend>Mental Health</legend>
       <label>Stress Level (1–10)</label>
-      <input type="range" name="stress" min="1" max="10">
+      <div class="slider-container">
+        <input type="range" name="stress" min="1" max="10" value="5" class="slider" id="stressSlider">
+        <span class="slider-value" id="stressValue">5</span>
+      </div>
 
       <label>Mental Well-being Rating (1–10)</label>
-      <input type="range" name="mentalWellbeing" min="1" max="10">
+      <div class="slider-container">
+        <input type="range" name="mentalWellbeing" min="1" max="10" value="5" class="slider" id="wellbeingSlider">
+        <span class="slider-value" id="wellbeingValue">5</span>
+      </div>
 
       <label>Have you consulted a mental health professional?</label>
       <select name="mentalSupport">
         <option>No</option>
         <option>Yes</option>
       </select>
-
-      <label>Check all that apply (past 6 months)</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" name="mentalIssues" value="stress"> Frequent stress</label>
-        <label><input type="checkbox" name="mentalIssues" value="anxiety"> Anxiety</label>
-        <label><input type="checkbox" name="mentalIssues" value="depression"> Depression</label>
-        <label><input type="checkbox" name="mentalIssues" value="insomnia"> Trouble sleeping</label>
-        <label><input type="checkbox" name="mentalIssues" value="none"> None</label>
-      </div>
     </fieldset>
 
     <!-- Lifestyle & Environment -->
@@ -163,19 +186,6 @@
         <option>2–4 hours</option>
         <option>5–6 hours</option>
         <option>More than 6 hours</option>
-      </select>
-
-      <label>Do you have pets?</label>
-      <select name="pets">
-        <option>No</option>
-        <option>Yes</option>
-      </select>
-
-      <label>Air Quality in Your Region</label>
-      <select name="airQuality">
-        <option>Good</option>
-        <option>Moderate</option>
-        <option>Poor</option>
       </select>
 
       <label>Engagement in stress-relieving activities</label>
@@ -191,14 +201,55 @@
     <button type="submit" class="submit-btn">Submit Assessment</button>
   </form>
 
+  <div id="results">
+    <h2>Assessment Results</h2>
+    <p>Your risk category: <span id="riskCategory"></span></p>
+    <p>Your score: <span id="riskScore"></span></p>
+    <h3>Recommendations:</h3>
+    <ul id="recommendations"></ul>
+  </div>
+
   <script>
+    // Slider value displays
+    const stressSlider = document.getElementById('stressSlider');
+    const stressValue = document.getElementById('stressValue');
+    const wellbeingSlider = document.getElementById('wellbeingSlider');
+    const wellbeingValue = document.getElementById('wellbeingValue');
+
+    stressSlider.addEventListener('input', () => {
+      stressValue.textContent = stressSlider.value;
+    });
+
+    wellbeingSlider.addEventListener('input', () => {
+      wellbeingValue.textContent = wellbeingSlider.value;
+    });
+
+    // Form submission
     document.getElementById('riskForm').addEventListener('submit', async function(event) {
       event.preventDefault();
+      const submitBtn = event.target.querySelector('.submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
+
+      // Process form data
       const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData.entries());
+      const data = {
+        age: parseInt(formData.get('age')),
+        gender: formData.get('gender'),
+        smoke: formData.get('smoke'),
+        exercise: formData.get('exercise'),
+        stress: parseInt(formData.get('stress')),
+        mentalWellbeing: parseInt(formData.get('mentalWellbeing')),
+        mentalSupport: formData.get('mentalSupport'),
+        relaxation: formData.get('relaxation'),
+        screenTime: formData.get('screenTime'),
+        conditions: Array.from(formData.getAll('conditions')).filter(c => c !== "none")
+      };
 
       try {
-        const response = await fetch('wellsure-backend-edfyfja5b4bmegct.uaenorth-01.azurewebsites.net', {
+        const API_URL = 'https://wellsure-backend-edfyfja5b4bmegct.uaenorth-01.azurewebsites.net/api/assess';
+        
+        const response = await fetch(API_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -206,13 +257,55 @@
           body: JSON.stringify(data)
         });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const result = await response.json();
-        alert(`Your risk level is: ${result.riskCategory}\nRecommendations: ${result.recommendations}`);
+        displayResults(result);
       } catch (error) {
         console.error('Submission failed:', error);
-        alert('Something went wrong. Please try again later.');
+        alert('Error submitting assessment. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Assessment';
       }
     });
+
+    function displayResults(result) {
+      const resultsDiv = document.getElementById('results');
+      const riskCategory = document.getElementById('riskCategory');
+      const riskScore = document.getElementById('riskScore');
+      const recommendationsList = document.getElementById('recommendations');
+
+      // Set risk category with appropriate color
+      riskCategory.textContent = result.riskCategory;
+      riskCategory.className = '';
+      if (result.riskCategory.includes('High')) {
+        riskCategory.classList.add('risk-high');
+      } else if (result.riskCategory.includes('Moderate')) {
+        riskCategory.classList.add('risk-medium');
+      } else {
+        riskCategory.classList.add('risk-low');
+      }
+
+      // Set score and recommendations
+      riskScore.textContent = result.score || 'N/A';
+      
+      recommendationsList.innerHTML = '';
+      result.recommendations.forEach(rec => {
+        const li = document.createElement('li');
+        li.textContent = rec;
+        recommendationsList.appendChild(li);
+      });
+
+      // Show results
+      resultsDiv.style.display = 'block';
+      window.scrollTo({
+        top: resultsDiv.offsetTop,
+        behavior: 'smooth'
+      });
+    }
   </script>
 </body>
 </html>
