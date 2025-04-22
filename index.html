@@ -208,7 +208,7 @@
       <p class="subtitle">Complete this form to receive your personalized health risk evaluation</p>
     </header>
     
-    <form id="riskForm">
+    <form id="riskForm" onsubmit="return false;">
       <!-- Personal Info -->
       <fieldset>
         <legend>Personal Information</legend>
@@ -220,41 +220,24 @@
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-        
-        <label for="marital">Marital Status</label>
-        <select id="marital" name="marital">
-          <option value="single">Single</option>
-          <option value="married">Married</option>
-          <option value="divorced">Divorced</option>
-          <option value="widowed">Widowed</option>
-        </select>
       </fieldset>
       
       <!-- Physical Health -->
       <fieldset>
         <legend>Physical Health</legend>
         <label>Do you smoke?</label>
-        <select name="smoke">
+        <select id="smoke" name="smoke">
           <option value="no">No</option>
           <option value="yes">Yes</option>
         </select>
         
         <label>Weekly Exercise Frequency</label>
-        <select name="exercise">
+        <select id="exercise" name="exercise">
           <option value="never">Never</option>
           <option value="1-2">1-2 times</option>
           <option value="3-4">3-4 times</option>
           <option value="5+">5+ times</option>
         </select>
-        
-        <label>Chronic Conditions</label>
-        <div class="checkbox-group">
-          <label><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
-          <label><input type="checkbox" name="conditions" value="hypertension"> Hypertension</label>
-          <label><input type="checkbox" name="conditions" value="asthma"> Asthma</label>
-          <label><input type="checkbox" name="conditions" value="cholesterol"> High Cholesterol</label>
-          <label><input type="checkbox" name="conditions" value="none"> None</label>
-        </div>
       </fieldset>
       
       <!-- Mental Health -->
@@ -265,52 +248,9 @@
         
         <label for="mentalWellbeing">Mental Well-being Rating (0-10)</label>
         <input type="number" id="mentalWellbeing" name="mentalWellbeing" min="0" max="10" required>
-        
-        <label for="anxiety">Anxiety Frequency (0-10)</label>
-        <input type="number" id="anxiety" name="anxiety" min="0" max="10" required>
-        
-        <label for="sleep">Sleep Quality (0-10)</label>
-        <input type="number" id="sleep" name="sleep" min="0" max="10" required>
-        
-        <label>Have you consulted a mental health professional?</label>
-        <select name="mentalSupport">
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-        
-        <label>Do you experience any of these?</label>
-        <div class="checkbox-group">
-          <label><input type="checkbox" name="mentalIssues" value="panic"> Panic attacks</label>
-          <label><input type="checkbox" name="mentalIssues" value="mood"> Mood swings</label>
-          <label><input type="checkbox" name="mentalIssues" value="focus"> Difficulty focusing</label>
-          <label><input type="checkbox" name="mentalIssues" value="appetite"> Appetite changes</label>
-        </div>
       </fieldset>
       
-      <!-- Lifestyle -->
-      <fieldset>
-        <legend>Lifestyle Factors</legend>
-        <label>Screen Time (non-work)</label>
-        <select name="screenTime">
-          <option value="<2">Less than 2 hours</option>
-          <option value="2-4">2–4 hours</option>
-          <option value="5-6">5–6 hours</option>
-          <option value=">6">More than 6 hours</option>
-        </select>
-        
-        <label>Engagement in stress-relieving activities</label>
-        <select name="relaxation">
-          <option value="never">Never</option>
-          <option value="rarely">Rarely</option>
-          <option value="occasionally">Occasionally</option>
-          <option value="regularly">Regularly</option>
-        </select>
-        
-        <label>Social Connections Satisfaction (0-10)</label>
-        <input type="number" name="social" min="0" max="10" required>
-      </fieldset>
-      
-      <button type="submit" class="submit-btn">Get My Assessment</button>
+      <button type="button" id="submitBtn" class="submit-btn">Submit Assessment</button>
     </form>
     
     <div id="results">
@@ -324,93 +264,71 @@
     </div>
   </div>
 
-   <script>
-    document.getElementById('riskForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-      const submitBtn = event.target.querySelector('.submit-btn');
+  <script>
+    document.getElementById('submitBtn').addEventListener('click', async function() {
+      const btn = this;
+      const form = document.getElementById('riskForm');
       
       try {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Analyzing...';
+        // Validate required fields
+        if (!form.age.value || !form.gender.value) {
+          throw new Error('Please fill in all required fields');
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Processing...';
         
-        const formData = new FormData(event.target);
+        // Prepare data
         const data = {
-          age: parseInt(formData.get('age')),
-          gender: formData.get('gender'),
-          smoke: formData.get('smoke'),
-          exercise: formData.get('exercise'),
-          stress: parseInt(formData.get('stress')),
-          mentalWellbeing: parseInt(formData.get('mentalWellbeing')),
-          anxiety: parseInt(formData.get('anxiety')),
-          sleep: parseInt(formData.get('sleep')),
-          mentalSupport: formData.get('mentalSupport'),
-          relaxation: formData.get('relaxation'),
-          screenTime: formData.get('screenTime'),
-          social: parseInt(formData.get('social')),
-          conditions: Array.from(formData.getAll('conditions')).filter(c => c !== "none"),
-          mentalIssues: Array.from(formData.getAll('mentalIssues'))
+          age: parseInt(form.age.value),
+          gender: form.gender.value,
+          smoke: form.smoke.value,
+          exercise: form.exercise.value,
+          stress: parseInt(form.stress.value),
+          mentalWellbeing: parseInt(form.mentalWellbeing.value)
         };
+
+        console.log('Submitting data:', data);
         
-        // Updated with your actual backend URL
-        const API_URL = 'https://wellsure-backend-edfyfja5b4bmegct.uaenorth-01.azurewebsites.net/api/assess';
-        
-        const response = await fetch(API_URL, {
+        // Send to backend
+        const response = await fetch('https://wellsure-backend-edfyfja5b4bmegct.uaenorth-01.azurewebsites.net/api/assess', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(data)
         });
-        
+
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || `Server responded with ${response.status}`);
+          const error = await response.json();
+          throw new Error(error.message || 'Request failed');
         }
-        
+
         const result = await response.json();
-        displayResults(result);
+        console.log('Received result:', result);
+        
+        // Display results
+        document.getElementById('riskCategory').textContent = result.riskCategory;
+        document.getElementById('riskScore').textContent = result.score;
+        
+        const recommendationsList = document.getElementById('recommendations');
+        recommendationsList.innerHTML = '';
+        result.recommendations.forEach(rec => {
+          const li = document.createElement('li');
+          li.textContent = rec;
+          recommendationsList.appendChild(li);
+        });
+
+        document.getElementById('results').style.display = 'block';
         
       } catch (error) {
         console.error('Error:', error);
         alert(`Error: ${error.message}`);
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Get My Assessment';
+        btn.disabled = false;
+        btn.textContent = 'Submit Assessment';
       }
     });
-    
-    function displayResults(result) {
-      const resultsDiv = document.getElementById('results');
-      const riskCategory = document.getElementById('riskCategory');
-      const riskScore = document.getElementById('riskScore');
-      const recommendationsList = document.getElementById('recommendations');
-      
-      riskCategory.textContent = result.riskCategory;
-      riskCategory.className = '';
-      
-      if (result.riskCategory.includes('High')) {
-        riskCategory.classList.add('risk-high');
-      } else if (result.riskCategory.includes('Moderate')) {
-        riskCategory.classList.add('risk-medium');
-      } else {
-        riskCategory.classList.add('risk-low');
-      }
-      
-      riskScore.textContent = result.score;
-      recommendationsList.innerHTML = '';
-      
-      result.recommendations.forEach(rec => {
-        const li = document.createElement('li');
-        li.textContent = rec;
-        recommendationsList.appendChild(li);
-      });
-      
-      resultsDiv.style.display = 'block';
-      window.scrollTo({
-        top: resultsDiv.offsetTop,
-        behavior: 'smooth'
-      });
-    }
   </script>
 </body>
 </html>
